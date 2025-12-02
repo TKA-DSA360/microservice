@@ -28,14 +28,14 @@ public class OrderService {
 		// check user is valid or (is existing)
 		// call user service (service to service call)
 
-		Boolean isExist = restTemplate.getForObject("http://localhost:8081/users/exists/" + orderRequest.getUserId(),
+		Boolean isExist = restTemplate.getForObject("http://USER-SERVICE/users/exists/" + orderRequest.getUserId(),
 				Boolean.class);
 
 		if (isExist) {
 			System.out.println("User is valid, proceed with order placement");
 
 			// check product is valid or (is existing)
-			Product product = restTemplate.getForObject("http://localhost:8082/products/" + orderRequest.getProductId(),
+			Product product = restTemplate.getForObject("http://PRODUCT-SERVICE/products/" + orderRequest.getProductId(),
 					Product.class);
 			if (product != null) {
 				System.out.println("Product is valid, placing order...");
