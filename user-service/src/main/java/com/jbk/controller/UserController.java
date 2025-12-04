@@ -35,7 +35,7 @@ public class UserController {
 	}
 
 	// get user by userId
-	// localhost:8080/users/1
+	// localhost:8081/users/1
 	@GetMapping("/{uid}")
 	public ResponseEntity<User> getUserById(@PathVariable long uid) {
 

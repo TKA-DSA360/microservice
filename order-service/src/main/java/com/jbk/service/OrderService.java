@@ -3,10 +3,10 @@ package com.jbk.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
+import com.jbk.clients.ProductClient;
+import com.jbk.clients.UserClient;
 import com.jbk.dto.OrderRequest;
 import com.jbk.dto.Product;
 import com.jbk.entity.Orders;
@@ -16,7 +16,10 @@ import com.jbk.repositiory.OrderRepository;
 public class OrderService {
 
 	@Autowired
-	private RestTemplate restTemplate;;
+    private UserClient userClient;
+
+    @Autowired
+    private ProductClient productClient;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -28,15 +31,13 @@ public class OrderService {
 		// check user is valid or (is existing)
 		// call user service (service to service call)
 
-		Boolean isExist = restTemplate.getForObject("http://USER-SERVICE/users/exists/" + orderRequest.getUserId(),
-				Boolean.class);
+		Boolean isExist =userClient.isUserExists(orderRequest.getUserId());
 
 		if (isExist) {
 			System.out.println("User is valid, proceed with order placement");
 
 			// check product is valid or (is existing)
-			Product product = restTemplate.getForObject("http://PRODUCT-SERVICE/products/" + orderRequest.getProductId(),
-					Product.class);
+			Product product = productClient.getProductById(orderRequest.getProductId());
 			if (product != null) {
 				System.out.println("Product is valid, placing order...");
 
