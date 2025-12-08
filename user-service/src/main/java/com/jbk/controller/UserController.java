@@ -3,6 +3,7 @@ package com.jbk.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import com.jbk.service.UserService;
 
 @RestController
 @RequestMapping("/users")
+@RefreshScope
 public class UserController {
 
 	@Autowired
