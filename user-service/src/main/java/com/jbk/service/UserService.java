@@ -46,7 +46,7 @@ public class UserService {
 		}
 		return false;
 	}
-	
+
 	public boolean isUserExists(long uid) {
 		return userRepository.existsById(uid);
 	}
